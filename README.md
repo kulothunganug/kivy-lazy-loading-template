@@ -10,3 +10,4 @@ Improves your kivy app's performance 🚀 by lazy loading.
 * All screen py files should be in *libs/uix/baseclass* folder and their kv files in *libs/uix/kv*.
 * Screen's files name should looks like this `name_screen.py` and `name_screen.kv`.
 * Their class should needs to be looks like this `class NameScreen(Screen)` and they are case sensitive so you can't create another like this `class nameScreen(Screen)` that will throw error.
+* For more info refer the [*libs/uix/root.py*](https://github.com/Kulothungan16/kivy-lazy-loading-template/blob/main/libs/uix/root.py) to get a clearer view about this template
