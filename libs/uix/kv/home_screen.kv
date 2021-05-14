@@ -1,0 +1,11 @@
+<HomeScreen>
+
+    BoxLayout:
+        orientation: "vertical"
+
+        Label:
+            text: "Current Screen: " + root.name
+
+        Button:
+            text: "GOTO SETTINGS"
+            on_release: root.manager.set_current("settings")
