@@ -12,6 +12,9 @@ class Root(ScreenManager):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         Window.bind(on_keyboard=self._goto_previous_screen)
+        # getting screens data from screens.json
+        with open("screens.json") as f:
+            self.screens_data = json.load(f)
 
     def set_current(self, screen_name, side="left"):
         """
@@ -36,12 +39,7 @@ class Root(ScreenManager):
 
         # checks that the screen already added to the screen-manager
         if not self.has_screen(screen_name):
-            # using screens.json to load screens
-            with open("screens.json") as f:
-                screens_data = json.load(f)
-
-            screen = screens_data[screen_name]
-
+            screen = self.screens_data[screen_name]
             # loads the kv file
             Builder.load_file(screen["kv"])
             # imports the screen class dynamically
