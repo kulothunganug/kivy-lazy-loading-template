@@ -69,3 +69,4 @@ class Root(ScreenManager):
                 self.previous_screen["name"],
                 side="right" if self.previous_screen["side"] == "left" else "left",
             )
+            self.previous_screen = None
