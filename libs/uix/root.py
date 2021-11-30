@@ -2,21 +2,22 @@ import json
 
 from kivy.core.window import Window
 from kivy.lang import Builder
+from kivy.properties import ListProperty
 from kivy.uix.screenmanager import ScreenManager
 
 
 class Root(ScreenManager):
 
-    previous_screen = None
+    history = ListProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        Window.bind(on_keyboard=self._goto_previous_screen)
+        Window.bind(on_keyboard=self._handle_keyboard)
         # getting screens data from screens.json
         with open("screens.json") as f:
             self.screens_data = json.load(f)
 
-    def set_current(self, screen_name, side="left"):
+    def set_current(self, screen_name, side="left", _from_goback=False):
         """
         If you need to use more screens in your app,
         Create your screen files like below:
@@ -51,22 +52,35 @@ class Root(ScreenManager):
             # finnaly adds the screen to the screen-manager
             self.add_widget(screen_object)
 
-        # saves previous screen information
-        self.previous_screen = {"name": self.current, "side": side}
+        # saves screen information to history
+        # if you not want a screen to go back
+        # use like below
+        # if not from_goback and screen_name not in ["auth", ...]
+        if not _from_goback:
+            self.history.append({"name": screen_name, "side": side})
+
         # sets transition direction
         self.transition.direction = side
         # sets to the current screen
         self.current = screen_name
 
-    def _goto_previous_screen(self, instance, key, *args):
+    def _handle_keyboard(self, instance, key, *args):
         if key == 27:
-            self.goto_previous_screen()
+            self.goback()
             return True
 
-    def goto_previous_screen(self):
-        if self.previous_screen:
-            self.set_current(
-                self.previous_screen["name"],
-                side="right" if self.previous_screen["side"] == "left" else "left",
-            )
-            self.previous_screen = None
+    def goback(self):
+        if len(self.history) > 1:
+            prev_side = self.history.pop()["side"]
+            prev_screen = self.history[-1]
+
+            if prev_side == "left":
+                side = "right"
+            elif prev_side == "right":
+                side = "left"
+            elif prev_side == "up":
+                side = "down"
+            elif prev_side == "down":
+                side = "up"
+
+            self.set_current(prev_screen["name"], side=side, _from_goback=True)
