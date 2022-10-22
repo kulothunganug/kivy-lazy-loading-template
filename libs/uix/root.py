@@ -5,6 +5,8 @@ from kivy.lang import Builder
 from kivy.properties import ListProperty
 from kivy.uix.screenmanager import ScreenManager
 
+from libs.applibs import utils
+
 
 class Root(ScreenManager):
 
@@ -14,7 +16,7 @@ class Root(ScreenManager):
         super().__init__(**kwargs)
         Window.bind(on_keyboard=self._handle_keyboard)
         # getting screens data from screens.json
-        with open("screens.json") as f:
+        with open(utils.abs_path("screens.json")) as f:
             self.screens_data = json.load(f)
 
     def set_current(self, screen_name, side="left", _from_goback=False):
@@ -42,7 +44,7 @@ class Root(ScreenManager):
         if not self.has_screen(screen_name):
             screen = self.screens_data[screen_name]
             # loads the kv file
-            Builder.load_file(screen["kv"])
+            Builder.load_file(utils.abs_path(screen["kv"]))
             # imports the screen class dynamically
             exec(screen["import"])
             # calls the screen class to get the instance of it
