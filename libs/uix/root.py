@@ -19,7 +19,7 @@ class Root(ScreenManager):
         with open(utils.abs_path("screens.json")) as f:
             self.screens_data = json.load(f)
 
-    def set_current(self, screen_name, side="left", _from_goback=False):
+    def set_current(self, screen_name, side="left", _from_goback=False, change_screens=True):
         """
         If you need to use more screens in your app,
         Create your screen files like below:
@@ -38,6 +38,10 @@ class Root(ScreenManager):
                 Note: In .JSON you must not use:
                         * Unneeded Commas
                         * Comments
+
+            4. Set "change_screens=False" to prevent switching screens. Handy for pre building a screen in the background without
+                opening the screen
+
         """
 
         # checks that the screen already added to the screen-manager
@@ -64,7 +68,8 @@ class Root(ScreenManager):
         # sets transition direction
         self.transition.direction = side
         # sets to the current screen
-        self.current = screen_name
+        if change_screens:
+            self.current = screen_name
 
     def _handle_keyboard(self, instance, key, *args):
         if key == 27:
