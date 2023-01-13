@@ -12,7 +12,6 @@ When using this template the screen will only be loaded when you switching the s
 * This template also supports to *go previous screen* when user press the back button (mobile) or ESC button (desktop), You can use `screen_manager_instance.goback()` to go the previous screen.
 * All screen's py files should be in **libs/uix/baseclass** folder and their kv files in **libs/uix/kv**.
 * For more info refer [libs/uix/root.py](https://github.com/Kulothungan16/kivy-lazy-loading-template/blob/main/libs/uix/root.py) and [screens.json](https://github.com/Kulothungan16/kivy-lazy-loading-template/blob/main/screens.json) to get a clearer view about this template.
-* Don't change self.root = Root() for self.another_name = Root(), It won't work if it's not called root
 * Add **json** to your buildozer file, such as 
 ```
 # (list) Source files to include (let empty to include all the files)
