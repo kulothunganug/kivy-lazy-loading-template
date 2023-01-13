@@ -14,6 +14,8 @@ class MainApp(App):
         Window.softinput_mode = "below_target"
 
     def build(self):
+        # Don't change self.root to self.some_other_name
+        # refer https://kivy.org/doc/stable/api-kivy.app.html#kivy.app.App.root
         self.root = Root()
         self.root.set_current("home")
 

@@ -38,6 +38,7 @@ class Root(ScreenManager):
                 Note: In .JSON you must not use:
                         * Unneeded Commas
                         * Comments
+
         """
 
         # checks that the screen already added to the screen-manager
@@ -63,6 +64,7 @@ class Root(ScreenManager):
 
         # sets transition direction
         self.transition.direction = side
+        
         # sets to the current screen
         self.current = screen_name
 
