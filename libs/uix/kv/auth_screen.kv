@@ -1,4 +1,4 @@
-<HomeScreen>
+<AuthScreen>
 
     BoxLayout:
         orientation: "vertical"
@@ -7,5 +7,5 @@
             text: "Current Screen: " + root.name
 
         Button:
-            text: "GOTO SETTINGS"
-            on_release: root.manager.push("settings")
+            text: "Login (Dummy)"
+            on_release: root.manager.push_replacement("home")

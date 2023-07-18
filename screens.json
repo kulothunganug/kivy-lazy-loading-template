@@ -1,4 +1,9 @@
 {
+    "auth": {
+        "import": "from libs.uix.baseclass.auth_screen import AuthScreen",
+        "object": "AuthScreen()",
+        "kv": "libs/uix/kv/auth_screen.kv"
+    },
     "home": {
         "import": "from libs.uix.baseclass.home_screen import HomeScreen",
         "object": "HomeScreen()",

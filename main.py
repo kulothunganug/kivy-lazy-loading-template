@@ -17,7 +17,7 @@ class MainApp(App):
         # Don't change self.root to self.some_other_name
         # refer https://kivy.org/doc/stable/api-kivy.app.html#kivy.app.App.root
         self.root = Root()
-        self.root.set_current("home")
+        self.root.push("auth")
 
 
 if __name__ == "__main__":

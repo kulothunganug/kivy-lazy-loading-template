@@ -1,24 +1,38 @@
 # Kivy Lazy Loading - Template
-Improve your kivy app's performance 🚀 by lazy loading.
+Enhance the performance of your Kivy app 🚀 with lazy loading.
 
-This template will be very useful if your kivy app uses more screen,
-In normal the app loads all the screens at once, it take some time to load all of it, if the screens contain much complex widgets, then it affects the start-up time.
-To get rid of these issues, this template comes in.
-When using this template the screen will only be loaded when you switching the screen, so the startup time reduces.
+By implementing this template, you can enhance the performance of your Kivy app through the technique of lazy loading screens. Rather than loading all the screens at startup, this approach ensures that screens are loaded only when they are actively switched to. As a result, the startup time of your app can be significantly reduced.
 
-## Things you should know before using:
-* Just loads the screen when `screen_manager_instance.set_current("name")` called and the arg should be avail in [screens.json](https://github.com/Kulothungan16/kivy-lazy-loading-template/blob/main/screens.json) as a key.
-* Don't worry about loading the kv file it will automatically load when the screen enters.
-* This template also supports to *go previous screen* when user press the back button (mobile) or ESC button (desktop), You can use `screen_manager_instance.goback()` to go the previous screen.
-* All screen's py files should be in **libs/uix/baseclass** folder and their kv files in **libs/uix/kv**.
-* For more info refer [libs/uix/root.py](https://github.com/Kulothungan16/kivy-lazy-loading-template/blob/main/libs/uix/root.py) and [screens.json](https://github.com/Kulothungan16/kivy-lazy-loading-template/blob/main/screens.json) to get a clearer view about this template.
-* Add **json** to your buildozer file, such as 
+This template also features a **screen navigation system** that simplifies handling the back button.
+
+### Navigation
+The [`Root`](https://github.com/kulothunganug/kivy-lazy-loading-template/blob/main/libs/uix/root.py) is based on [`ScreenManager`](https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html) and additionally provides a few navigation methods: `push(screen_name, side)`, `push_replacement(screen_name, side)` and `pop()`.
+
+Also `load_screen(screen_name)` method can be used to load the screen and the kv file without setting it as the current screen.
+
+To incorporate additional screens into your app, follow these steps:
+
+1. Create `screen_file.py` in the `libs/uix/baseclass/` directory.
+2. Create `screen_file.kv` in the `libs/uix/kv/` directory.
+3. Add the screen details to `screens.json` as shown below:
+```json
+{
+    ...,
+    "screen_name": {
+        "import": "from libs.uix.baseclass.screen_file import ScreenObjectName",
+        "object": "ScreenObjectName()",
+        "kv": "libs/uix/kv/screen_file.kv"
+    }
+}
+```
+This template already contains three screens as example which uses all the navigation methods.
+
+
+## Buildozer
+To use this template for mobile devices, make sure to add **json** to your `buildozer.spec` file, such as
 ```
 # (list) Source files to include (let empty to include all the files)
 source.include_exts = py,png,jpg,kv,atlas,gif,json
 ```
-## Goback to previous screen
-* You should use `screen_manager_instance.goback()` when you want to go back to the previous screen, instead of `screen_manager_instance.set_current('prev_screen', side='right')` otherwise the history of the screen manager will be collapsed.
 
-
-##### This template already contains two screens as example.
+### Further details are documented within the code itself.
