@@ -53,10 +53,10 @@ class Root(ScreenManager):
         sets `screen_name` it as the current screen.
         """
 
-        self.load_screen(screen_name)
-
         if self.current != screen_name:
             self.history.append({"name": screen_name, "side": side})
+
+        self.load_screen(screen_name)
 
         # set transition direction
         self.transition.direction = side
