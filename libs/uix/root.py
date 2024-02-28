@@ -14,8 +14,12 @@ class Root(ScreenManager):
         super().__init__(**kwargs)
         Window.bind(on_keyboard=self._handle_keyboard)
         # get screen data from screens.json
-        with open(utils.abs_path("screens.json")) as f:
-            self.screens_data = json.load(f)
+        try:
+            with open(utils.abs_path("YourApp/screens.json")) as f:
+                self.screens_data = json.load(f)
+        except:
+            with open(utils.abs_path("screens.json")) as f:
+                self.screens_data = json.load(f)
 
     def _handle_keyboard(self, instance, key, *args):
         if key == 27:
@@ -33,9 +37,14 @@ class Root(ScreenManager):
 
         # checks if the screen is already added to the screen-manager
         if not self.has_screen(screen_name):
+            
             screen = self.screens_data[screen_name]
+            print (screen["kv"],'what the actual fuck')
             # load the kv file (libs/uix/kv/screen_kv_file.kv)
-            Builder.load_file(utils.abs_path(screen["kv"]))
+            try:
+                Builder.load_file(utils.abs_path(screen["kv"]))
+            except:
+                Builder.load_file("YourApp/"+(screen["kv"]))
             # import screen class dynamically
             # (from libs.uix.baseclass.screen_py_file import ScreenObjectName)
             exec(screen["import"])
