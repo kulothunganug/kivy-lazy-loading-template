@@ -19,8 +19,8 @@ To incorporate additional screens into your app, follow these steps:
 {
     ...,
     "screen_name": {
-        "import": "from libs.uix.baseclass.screen_file import ScreenObjectName",
-        "object": "ScreenObjectName()",
+        "module": "libs.uix.baseclass.screen_file",
+        "object": "ScreenObjectName",
         "kv": "libs/uix/kv/screen_file.kv"
     }
 }

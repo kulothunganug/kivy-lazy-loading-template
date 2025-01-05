@@ -1,3 +1,4 @@
+import importlib
 import json
 
 from kivy.core.window import Window
@@ -36,12 +37,12 @@ class Root(ScreenManager):
             screen = self.screens_data[screen_name]
             # load the kv file (libs/uix/kv/screen_kv_file.kv)
             Builder.load_file(utils.abs_path(screen["kv"]))
-            # import screen class dynamically
-            # (from libs.uix.baseclass.screen_py_file import ScreenObjectName)
-            exec(screen["import"])
+            # grabs the screen module dynamically
+            screen_mod = importlib.import_module(screen["module"])
+            # grabs the screen class from the module
+            screen_class = getattr(screen_mod, screen["object"])
             # calls the screen class to get the instance of it
-            # (ScreenObjectName())
-            screen_object = eval(screen["object"])
+            screen_object = screen_class()
             # set the screen name using screen_name arg
             screen_object.name = screen_name
             # add the screen to the screen-manager
