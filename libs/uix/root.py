@@ -95,17 +95,15 @@ class Root(ScreenManager):
         cur_side = self.history.pop()["side"]
         prev_screen = self.history[-1]
 
-        if cur_side == "left":
-            side = "right"
-        elif cur_side == "right":
-            side = "left"
-        elif cur_side == "up":
-            side = "down"
-        elif cur_side == "down":
-            side = "up"
+        opp_sides = {
+            "left": "right",
+            "right": "left",
+            "up": "down",
+            "down": "up",
+        }
 
         # set transition direction
-        self.transition.direction = side
+        self.transition.direction = opp_sides[cur_side]
 
         # set current screen
         self.current = prev_screen["name"]
